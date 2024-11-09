@@ -1,0 +1,17 @@
+created:
+    - app/Http/Controllers/DistrictController.php
+    - tests/Feature/Http/Controllers/DistrictControllerTest.php
+    - resources/views/district/index.blade.php
+    - resources/views/district/create.blade.php
+    - resources/views/district/show.blade.php
+    - resources/views/district/edit.blade.php
+updated:
+    - routes/web.php
+models:
+    Divison: { title: 'string:400', status: 'enum:active,disabled', relationships: { hasMany: District } }
+    District: { title: 'string:400', divison_id: 'id foreign:divisons', status: 'enum:active,disabled', relationships: { hasMany: University, belongsTo: Divison } }
+    UniversityType: { title: 'string:400', description: 'nullable longtext', status: 'enum:active,disabled', relationships: { hasMany: University } }
+    UniversityFundType: { title: 'string:400', description: 'nullable longtext', status: 'enum:active,disabled', relationships: { hasMany: University } }
+    University: { title: 'string:400', university_fund_type_id: 'id foreign:university_fund_types', university_type_id: 'id foreign:university_types', district_id: 'id foreign:districts', description: 'nullable longtext', phone: 'nullable string:400', contact: 'nullable longtext', short_links: 'nullable longtext', gmap_link: 'nullable longtext', web_link: 'nullable longtext', email: 'nullable string:400', email_register: 'nullable string:400', status: 'enum:active,disabled', relationships: { hasMany: UniversityProgramType, belongsTo: 'District, UniversityType, UniversityFundType' } }
+    UniversityProgramType: { title: 'string:400', description: 'nullable longtext', status: 'enum:active,disabled', relationships: { hasMany: UniversityProgram, belongsToMany: University } }
+    UniversityProgram: { title: 'string:400', university_program_type_id: 'id foreign:university_program_types', description: 'nullable longtext', total_credit: 'nullable integer', total_year: 'nullable integer', exam_system: 'nullable longtext', exam_requirement: 'nullable longtext', admission_cost: 'nullable longtext', total_cost: 'nullable longtext', admission_link: 'nullable longtext', online_form_link: 'nullable longtext', web_link: 'nullable longtext', status: 'enum:active,disabled', relationships: { belongsTo: 'UniversityProgramType, University' } }

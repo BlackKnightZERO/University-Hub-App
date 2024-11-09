@@ -1,171 +1,117 @@
-models:
-  Divison:
-    title: string:400
-    status: enum:active,disabled
-    relationships:
-      hasMany: District
-  District:
-    title: string:400
-    divison_id: id foreign:divisons
-    status: enum:active,disabled
-    relationships:
-      hasMany: University
-      belongsTo: Divison
-  UniversityType:
-    title: string:400
-    description: nullable longtext
-    status: enum:active,disabled
-    relationships:
-      hasMany: University
-  UniversityFundType:
-    title: string:400
-    description: nullable longtext
-    status: enum:active,disabled
-    relationships:
-      hasMany: University
-  University:
-    title: string:400
-    university_fund_type_id: id foreign:university_fund_types
-    university_type_id: id foreign:university_types
-    district_id: id foreign:districts
-    description: nullable longtext
-    phone: nullable string:400
-    contact: nullable longtext
-    short_links: nullable longtext
-    gmap_link: nullable longtext
-    web_link: nullable longtext
-    email: nullable string:400
-    email_register: nullable string:400
-    status: enum:active,disabled
-    relationships:
-      hasMany: UniversityProgramType
-      belongsTo: District, UniversityType, UniversityFundType
-  UniversityProgramType:
-    title: string:400
-    description: nullable longtext
-    status: enum:active,disabled
-    relationships:
-      hasMany: UniversityProgram
-      belongsToMany: University
-  UniversityProgram:
-    title: string:400
-    university_program_type_id: id foreign:university_program_types
-    description: nullable longtext
-    total_credit: nullable integer
-    total_year: nullable integer
-    exam_system: nullable longtext
-    exam_requirement: nullable longtext
-    admission_cost: nullable longtext
-    total_cost: nullable longtext
-    admission_link: nullable longtext
-    online_form_link: nullable longtext
-    web_link: nullable longtext
-    status: enum:active,disabled
-    relationships:
-      belongsTo: UniversityProgramType, University
-  # Post:
-  #   title: string:400
-  #   content: longtext
-  #   remark: string:100 nullable
-  #   user_id: id foreign
-  #   published_at: nullable timestamp
-  #   relationships:
-  #     hasMany: Transaction
-  #     belongsTo: User
-  # Transaction:
-  #   payment_token: string:40
-  #   total: decimal:8,2
-  #   user_id: id foreign
-  #   post_id: id foreign:posts
-  #   status: enum:pending,successful,failed
-  #   relationships:
-  #     belongsTo: User, Post
+# models:
+#   Divison:
+#     title: string:400
+#     status: enum:active,disabled
+#     relationships:
+#       hasMany: District
+#   District:
+#     title: string:400
+#     divison_id: id foreign:divisons
+#     status: enum:active,disabled
+#     relationships:
+#       hasMany: University
+#       belongsTo: Divison
+#   UniversityType:
+#     title: string:400
+#     description: nullable longtext
+#     status: enum:active,disabled
+#     relationships:
+#       hasMany: University
+#   UniversityFundType:
+#     title: string:400
+#     description: nullable longtext
+#     status: enum:active,disabled
+#     relationships:
+#       hasMany: University
+#   University:
+#     title: string:400
+#     university_fund_type_id: id foreign:university_fund_types
+#     university_type_id: id foreign:university_types
+#     district_id: id foreign:districts
+#     description: nullable longtext
+#     phone: nullable string:400
+#     contact: nullable longtext
+#     short_links: nullable longtext
+#     gmap_link: nullable longtext
+#     web_link: nullable longtext
+#     email: nullable string:400
+#     email_register: nullable string:400
+#     status: enum:active,disabled
+#     relationships:
+#       hasMany: UniversityProgramType
+#       belongsTo: District, UniversityType, UniversityFundType
+#   UniversityProgramType:
+#     title: string:400
+#     description: nullable longtext
+#     status: enum:active,disabled
+#     relationships:
+#       hasMany: UniversityProgram
+#       belongsToMany: University
+#   UniversityProgram:
+#     title: string:400
+#     university_program_type_id: id foreign:university_program_types
+#     description: nullable longtext
+#     total_credit: nullable integer
+#     total_year: nullable integer
+#     exam_system: nullable longtext
+#     exam_requirement: nullable longtext
+#     admission_cost: nullable longtext
+#     total_cost: nullable longtext
+#     admission_link: nullable longtext
+#     online_form_link: nullable longtext
+#     web_link: nullable longtext
+#     status: enum:active,disabled
+#     relationships:
+#       belongsTo: UniversityProgramType, University
 
-seeders: Divison, District, UniversityType, UniversityFundType, University, UniversityProgramType, UniversityProgram
+# seeders: Divison, District, UniversityType, UniversityFundType, University, UniversityProgramType, UniversityProgram
 
 controllers:
-  Divison:
-    index:
-      query: all:divisions
-      render: division.index with:divisions
-    create:
-      render: division.create
-    store:
-      validate: title, status
-      save: division
-      flash: division.title
-      redirect: division.index
-    show:
-      render: division.show with:division
-    edit:
-      render: division.edit with:division
-    update:
-      validate: division
-      update: division
-      flash: division.id
-      redirect: division.index
-    destroy:
-      delete: division
-      redirect: division.index
-  District:
-    index:
-      query: all:districts
-      render: division.index with:districts
-    create:
-      render: division.create
-    store:
-      validate: title, status
-      save: division
-      flash: division.title
-      redirect: division.index
-    show:
-      render: division.show with:division
-    edit:
-      render: division.edit with:division
-    update:
-      validate: division
-      update: division
-      flash: division.id
-      redirect: division.index
-    destroy:
-      delete: division
-      redirect: division.index
-# controllers:
-#   Post:
+#   Divison:
 #     index:
-#       query: all:posts
-#       render: post.index with:posts
+#       query: all:divisons
+#       render: divison.index with:divisons
 #     create:
-#       render: post.create
+#       render: divison.create
 #     store:
-#       validate: title, content, remark
-#       save: post
-#       send: ReviewNotification to:post.author with:post
-#       dispatch: SyncMedia with:post
-#       fire: NewPost with:post
-#       flash: post.title
-#       redirect: post.index
+#       validate: title, status
+#       save: divison
+#       flash: divison.title
+#       redirect: divison.index
 #     show:
-#       render: post.show with:post
+#       render: divison.show with:divison
 #     edit:
-#       render: post.edit with:post
+#       render: divison.edit with:divison
 #     update:
-#       validate: post
-#       update: post
-#       flash: post.id
-#       redirect: post.index
+#       validate: divison
+#       update: divison
+#       flash: divison.id
+#       redirect: divison.index
 #     destroy:
-#       delete: post
-#       redirect: post.index
-#   Transaction:
-#     store:
-#       validate: transaction
-#       save: transaction
-#       flash: transaction.id
-#       redirect: post.index
-#     show:
-#       render: transaction.show with:transaction
-#   Report:
-#     invokable:
-#       fire: ReportGenerated
-#       render: report
+#       delete: divison
+#       redirect: divison.index
+# District:
+#   index:
+#     query: all:districts
+#     render: district.index with:districts
+#   create:
+#     query: all:divisons
+#     render: district.create with:divisons
+#   store:
+#     validate: title, status, divison_id
+#     save: district
+#     flash: district.title
+#     redirect: district.index
+#   show:
+#     render: district.show with:district
+#   edit:
+#     query: all:divisons
+#     render: district.edit with:divisons, district
+#   update:
+#     validate: district
+#     update: district
+#     flash: district.title
+#     redirect: district.index
+#   destroy:
+#     delete: district
+#     redirect: district.index
