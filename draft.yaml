@@ -110,7 +110,7 @@ controllers:
 #   update:
 #     validate: district
 #     update: district
-#     flash: district.title
+#     flash: district.id
 #     redirect: district.index
 #   destroy:
 #     delete: district

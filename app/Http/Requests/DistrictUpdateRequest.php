@@ -25,4 +25,13 @@ class DistrictUpdateRequest extends FormRequest
             'status' => ['required', 'in:active,disabled'],
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'status' => $this->input('status') 
+                        ? $this->input('status') == "on" 
+                        ? 'active' : 'disabled' : 'disabled',
+        ]);
+    }
 }

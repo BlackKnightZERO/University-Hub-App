@@ -25,4 +25,13 @@ class DistrictStoreRequest extends FormRequest
             'divison_id' => ['required', 'integer', 'exists:divisons,id'],
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'status' => $this->input('status') 
+                        ? $this->input('status') == "on" 
+                        ? 'active' : 'disabled' : 'disabled',
+        ]);
+    }
 }

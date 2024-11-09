@@ -15,7 +15,7 @@ class DivisonController extends Controller
     public function index(Request $request): View
     {
         $divisons = Divison::all();
-        
+
         return view('divison.index', compact('divisons'));
     }
 
@@ -30,7 +30,7 @@ class DivisonController extends Controller
 
         $request->session()->flash('divison.title', $divison->title);
 
-        return redirect()->route('divison.index');
+        return redirect()->route('divisons.index');
     }
 
     public function show(Request $request, Divison $divison): View
@@ -49,13 +49,13 @@ class DivisonController extends Controller
 
         $request->session()->flash('divison.id', $divison->id);
 
-        return redirect()->route('divison.index');
+        return redirect()->route('divisons.index');
     }
 
     public function destroy(Request $request, Divison $divison): RedirectResponse
     {
         $divison->delete();
 
-        return redirect()->route('divison.index');
+        return redirect()->route('divisons.index');
     }
 }
